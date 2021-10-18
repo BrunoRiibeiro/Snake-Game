@@ -1,6 +1,8 @@
 from random import randint
 import pyxel
 
+
+
 x_head, y_head = 15, 12
 x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
 move_y, move_x = 0, 0
@@ -26,16 +28,26 @@ def update():
         x_head = x_head + move_x
         x_body.append(x_head)
         y_body.append(y_head)
-        if x_head != apple_x:
-            if y_head != apple_y:
-                del x_body[0]
-                del y_body[0]
+        del x_body[0]
+        del y_body[0]
 
     ##################
     # Game Over Mode #
     ##################
     if y_head >= 31 or y_head <= 0 or x_head >= 31 or x_head <= 0:
         game_over = True
+
+    # leaderboard #    
+    if game_over == True:
+        name = input("Enter your name: ")
+        file = open("leaderboard.txt", "a")
+        file.write(str(score) + "," + "\t" + name + "\n")
+        file.close()
+
+        file = open("leaderboard.txt", "r")
+        read_file = file.readlines()
+        sorted_data = sorted(read_file,reverse=True)
+
     
     if game_over and pyxel.btnp(pyxel.KEY_R):
         x_head, y_head = 15, 12
