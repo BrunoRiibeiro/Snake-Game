@@ -1,9 +1,6 @@
 3,Bruno
 3,clear()
 10,	Caludio
-10,	Caludio
-10,	;alkdsjf
-10,	k;sdalfk
 10,	clear()
 0,	Bruno
 0,	clear
