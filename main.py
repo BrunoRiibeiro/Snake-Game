@@ -29,8 +29,22 @@ def update():
     #     for x,y in zip(x_body,y_body):
     #         if x == x_head and y == y_head:
     #             game_over = True
+    
+    ###########
+    # Restart #
+    ###########
+    if game_over and pyxel.btnp(pyxel.KEY_R):
+        x_head, y_head = 15, 12
+        x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
+        move_y, move_x= 0, 0
+        score = 0
+        game_over = False
+    elif game_over:
+        return
 
-    # leaderboard #    
+    ###############
+    # leaderboard #
+    ###############    
     # if game_over == True:
     #     name = input("Enter your name: ")
     #     file = open("leaderboard.txt", "a")
@@ -41,21 +55,11 @@ def update():
     #     read_file = file.readlines()
     #     sorted_data = sorted(read_file,reverse=True)
 
-    
-    if game_over and pyxel.btnp(pyxel.KEY_R):
-        x_head, y_head = 15, 12
-        x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
-        move_y, move_x= 0, 0
-        score = 0
-        game_over = False
-    elif game_over:
-        return
-        
+
     
     #################
     # Gaming Motion #
     #################
-    
     if pyxel.frame_count % 5 == 0:
         y_head = y_head + move_y
         x_head = x_head + move_x
