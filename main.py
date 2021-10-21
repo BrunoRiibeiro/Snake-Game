@@ -17,7 +17,7 @@ game_over = False
 # Gaming Logic #
 ################
 def update():
-    global x_head, y_head,game_over, move_y, move_x, score
+    global x_head, y_head, x_body, y_body, game_over, move_y, move_x, score
 
     #################
     # Gaming Motion #
@@ -26,31 +26,36 @@ def update():
     if pyxel.frame_count % 5 == 0:
         y_head = y_head + move_y
         x_head = x_head + move_x
-        x_body.append(x_head)
-        y_body.append(y_head)
-        del x_body[0]
-        del y_body[0]
+        # x_body.append(x_head)
+        # y_body.append(y_head)
+        # del x_body[0]
+        # del y_body[0]
 
     ##################
     # Game Over Mode #
     ##################
     if y_head >= 31 or y_head <= 0 or x_head >= 31 or x_head <= 0:
         game_over = True
+    # if move_x or move_y != 0:
+    #     for x,y in zip(x_body,y_body):
+    #         if x == x_head and y == y_head:
+    #             game_over = True
 
     # leaderboard #    
-    if game_over == True:
-        name = input("Enter your name: ")
-        file = open("leaderboard.txt", "a")
-        file.write(str(score) + "," + "\t" + name + "\n")
-        file.close()
+    # if game_over == True:
+    #     name = input("Enter your name: ")
+    #     file = open("leaderboard.txt", "a")
+    #     file.write(str(score) + "," + "\t" + name + "\n")
+    #     file.close()
 
-        file = open("leaderboard.txt", "r")
-        read_file = file.readlines()
-        sorted_data = sorted(read_file,reverse=True)
+    #     file = open("leaderboard.txt", "r")
+    #     read_file = file.readlines()
+    #     sorted_data = sorted(read_file,reverse=True)
 
     
     if game_over and pyxel.btnp(pyxel.KEY_R):
         x_head, y_head = 15, 12
+        x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
         move_y, move_x= 0, 0
         score = 0
         game_over = False
@@ -86,12 +91,15 @@ def generate_snake():
     for x,y in zip(x_body,y_body):
         pyxel.pset(x,y, pyxel.COLOR_BROWN)
 
-    #if pyxel.frame_count % 5 == 0:
-    # x_body.append(x_head)
-    # y_body.append(y_head)
-    
-    # del x_body[0] 
-    # del y_body[0]
+    if pyxel.frame_count % 5 == 0:
+        x_body.append(x_head)
+        y_body.append(y_head)
+        del x_body[0] 
+        del y_body[0]
+
+    if x_head == apple_x and y_head == apple_y:
+        x_body.append(x_head)
+        y_body.append(y_head)
 
 
 def generate_apple():

@@ -5,3 +5,7 @@
 10,	;alkdsjf
 10,	k;sdalfk
 10,	clear()
+0,	Bruno
+0,	clear
+0,	clear()
+0,	clear()
