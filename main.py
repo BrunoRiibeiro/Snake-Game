@@ -19,16 +19,18 @@ game_over = False
 def update():
     global x_head, y_head, x_body, y_body, game_over, move_y, move_x, score
 
-
     ##################
     # Game Over Mode #
     ##################
     if y_head >= 31 or y_head <= 0 or x_head >= 31 or x_head <= 0:
         game_over = True
-    # if move_x or move_y != 0:
-    #     for x,y in zip(x_body,y_body):
-    #         if x == x_head and y == y_head:
-    #             game_over = True
+    
+    if move_x or move_y != 0:
+        for x,y in zip(x_body,y_body):
+            a,b = x_body[-1], y_body[-1]
+            if x_body.index(x) != x_body.index(a) and y_body.index(y) != y_body.index(b):
+                if x == x_body[-1] and y == y_body[-1]:
+                    game_over = True
     
     ###########
     # Restart #
@@ -61,8 +63,8 @@ def update():
     # Gaming Motion #
     #################
     if pyxel.frame_count % 5 == 0:
-        y_head = y_head + move_y
-        x_head = x_head + move_x
+        y_head += move_y
+        x_head += move_x
 
     ################
     # Motion Check #
@@ -91,7 +93,7 @@ def generate_snake():
     for x,y in zip(x_body,y_body):
         pyxel.pset(x,y, pyxel.COLOR_BROWN)
 
-    if pyxel.frame_count % 5 == 0:
+    if pyxel.frame_count % 5 == 0 and game_over == False:
         x_body.append(x_head)
         y_body.append(y_head)
         del x_body[0] 
@@ -143,6 +145,6 @@ def draw():
 
 
 pyxel.init(32, 32, caption="Snake Game", fps=fps, quit_key=pyxel.KEY_Q)
-pyxel.load("nokia.pyxres")
+pyxel.load("art.pyxres")
 pyxel.playm(0,loop=True)
 pyxel.run(update, draw)
