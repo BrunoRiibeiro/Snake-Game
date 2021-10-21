@@ -19,17 +19,6 @@ game_over = False
 def update():
     global x_head, y_head, x_body, y_body, game_over, move_y, move_x, score
 
-    #################
-    # Gaming Motion #
-    #################
-    
-    if pyxel.frame_count % 5 == 0:
-        y_head = y_head + move_y
-        x_head = x_head + move_x
-        # x_body.append(x_head)
-        # y_body.append(y_head)
-        # del x_body[0]
-        # del y_body[0]
 
     ##################
     # Game Over Mode #
@@ -61,8 +50,15 @@ def update():
         game_over = False
     elif game_over:
         return
+        
     
-
+    #################
+    # Gaming Motion #
+    #################
+    
+    if pyxel.frame_count % 5 == 0:
+        y_head = y_head + move_y
+        x_head = x_head + move_x
 
     ################
     # Motion Check #
