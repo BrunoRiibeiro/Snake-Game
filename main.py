@@ -1,3 +1,4 @@
+from os import name
 from random import randint
 import pyxel
 
@@ -5,59 +6,65 @@ import pyxel
 
 x_head, y_head = 15, 12
 x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
+acc = set(zip(x_body,y_body))
 move_y, move_x = 0, 0
 apple_x, apple_y = x_head, y_head
 up, down, left, rigth = -1, 1, -1, 1
 fps = 60
 score = -1
 game_over = False
+name = input("Enter your name: ")
+wrote = False
+print("Your name is", name)  
 
 
+###############
+# Leaderboard #
+###############
+def write():
+    global wrote
+    file = open("leaderboard.txt", "a")
+    file.write(str(score) + "," + "\t" + name + "\n")
+    file.close()
+    wrote = True
+    
+
+    
 ################
 # Gaming Logic #
 ################
 def update():
-    global x_head, y_head, x_body, y_body, game_over, move_y, move_x, score
+    global x_head, y_head, x_body, y_body, game_over, move_y, move_x, score, name, wrote
 
     ##################
     # Game Over Mode #
     ##################
+    # if move_x or move_y != 0 and len(set(zip(x_body,y_body)))>4:
+    #     if len(acc) < len(y_body):
+    #         game_over = True
     if y_head >= 31 or y_head <= 0 or x_head >= 31 or x_head <= 0:
         game_over = True
     
-    if move_x or move_y != 0:
-        for x,y in zip(x_body,y_body):
-            a,b = x_body[-1], y_body[-1]
-            if x_body.index(x) != x_body.index(a) and y_body.index(y) != y_body.index(b):
-                if x == x_body[-1] and y == y_body[-1]:
-                    game_over = True
     
-    ###########
-    # Restart #
-    ###########
-    if game_over and pyxel.btnp(pyxel.KEY_R):
-        x_head, y_head = 15, 12
-        x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
-        move_y, move_x= 0, 0
-        score = 0
-        game_over = False
-    elif game_over:
-        return
-
-    ###############
-    # leaderboard #
-    ###############    
-    # if game_over == True:
-    #     name = input("Enter your name: ")
-    #     file = open("leaderboard.txt", "a")
-    #     file.write(str(score) + "," + "\t" + name + "\n")
-    #     file.close()
-
-    #     file = open("leaderboard.txt", "r")
-    #     read_file = file.readlines()
-    #     sorted_data = sorted(read_file,reverse=True)
+    if game_over == True and wrote == False:
+        write()
 
 
+        ###########
+        # Restart #
+        ###########
+        if game_over and pyxel.btnp(pyxel.KEY_R):
+            x_head, y_head = 15, 12
+            x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
+            move_y, move_x= 0, 0
+            score = 0
+            game_over = False
+            name = input("Enter your name: ")
+            wrote = False
+        elif game_over:
+            return
+
+    
     
     #################
     # Gaming Motion #
@@ -87,6 +94,7 @@ def update():
             move_y = 0
 
 
+    
 
 
 def generate_snake():
@@ -115,36 +123,29 @@ def generate_apple():
     
 
 
-########################
-# No Trespassing Walls #
-########################
-def generate_walls():
-    pyxel.line(0,0, 0, 31, pyxel.COLOR_WHITE)
-    pyxel.line(0, 31, 31, 31, pyxel.COLOR_WHITE)
-    pyxel.line(31, 31, 31, 0, pyxel.COLOR_WHITE)
-    pyxel.line(31, 0, 0, 0, pyxel.COLOR_WHITE)    
 
-
+    
 
 
 ################
 # Game Drawing #
 ################
 def draw():
-    pyxel.cls(pyxel.COLOR_BLACK)
-    
+    pyxel.blt(0, 0, 0, 0, 0, 32, 32)
+
     generate_snake()
     generate_apple()
-    generate_walls()
+    
     
 
     if game_over:
-        pyxel.text(3, 3, f"SCORE:\n{score}", pyxel.COLOR_WHITE)
+        pyxel.text(3, 3, f"SCORE:\n{score}", pyxel.COLOR_BLACK)
         #pyxel.text(3, 3, "(R)estart\n(Q)uit", pyxel.COLOR_WHITE)
 
 
 
 pyxel.init(32, 32, caption="Snake Game", fps=fps, quit_key=pyxel.KEY_Q)
 pyxel.load("art.pyxres")
+pyxel.image(0).set(32,32,["32","32"])
 pyxel.playm(0,loop=True)
 pyxel.run(update, draw)
