@@ -14,6 +14,7 @@ You'll need to write your name in the terminal for leaderboard count.
 Controls are the arrow keys ← ↑ → ↓ or you may use (W,A,S,D) keys!
 
 Q: Quit the game
+
 R: Restart the game
 
 *Created by Bruno in 2021*
