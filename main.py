@@ -4,8 +4,8 @@ import pyxel
 
 x_head, y_head = 15, 12
 x_body, y_body = [x_head - 1, x_head], [y_head, y_head]
-move_x, move_y = 0, 0
 apple_x, apple_y = x_head, y_head
+move_x, move_y = 0, 0
 up, down, left, rigth = -1, 1, -1, 1
 fps = 60
 score = -1
@@ -71,14 +71,13 @@ def motion():
 #########################
 # Random apple generate #
 #########################
-def generate_apple():
+def update_apple():
     global apple_x, apple_y, score
 
     if x_head == apple_x and y_head == apple_y:
         apple_x = randint(1, 30)
         apple_y = randint(1, 30)
         score += 1 # for each apple eaten adds 1 point
-    pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
 
 
 
@@ -114,6 +113,7 @@ def update():
         return
 
     update_snake()
+    update_apple()
     motion()
 
 
@@ -125,11 +125,15 @@ def draw_snake():
     for x, y in zip(x_body, y_body):
         pyxel.pset(x, y, pyxel.COLOR_BROWN)
 
+def draw_apple():
+    pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
+
 def draw():
     pyxel.blt(0, 0, 0, 0, 0, 32, 32) # Draw the wallpaper
 
     draw_snake()
-    generate_apple()
+    draw_apple()
+
 
     if game_over:
         pyxel.text(3, 5, f"{name}\nSCORED:\n{score}", pyxel.COLOR_BLACK)
