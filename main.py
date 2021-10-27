@@ -10,6 +10,7 @@ up, down, left, rigth = -1, 1, -1, 1
 fps = 60
 score = -1
 game_over = False
+changed = False
 name = input("Enter your name: ")
 wrote = False
 print(f"Your name is {name}")  
@@ -73,13 +74,23 @@ def motion():
 #########################
 def update_apple():
     global apple_x, apple_y, score
-
     if x_head == apple_x and y_head == apple_y:
         apple_x = randint(1, 30)
         apple_y = randint(1, 30)
         score += 1 # for each apple eaten adds 1 point
 
 
+def change_music_1(): # To change the song while game_over == True
+    global changed
+    pyxel.stop() 
+    pyxel.playm(1, loop=True)
+    changed = True
+
+def change_music_2(): # To change the song while game_over == False
+    global changed
+    pyxel.stop()
+    pyxel.playm(0, loop=True)
+    changed = False
 
 
 def update():
@@ -92,13 +103,19 @@ def update():
    
     if len(acc) < len(y_body): # Check tail collision
         game_over = True
-            
+
     if not (0 < x_head < 31) or not (0 < y_head < 31): # Check no trespassing wall collision
         game_over = True
-    
-    if game_over == True and wrote == False: # Write name and score in leaderboard
-        write()
 
+    if game_over == True and wrote == False: # Write name and score in leaderboard
+        write()           
+
+    if game_over == True and changed == False: 
+        change_music_1()
+    if game_over == False and changed == True:                  
+        change_music_2()           
+
+    
     ###########
     # Restart #
     ###########
@@ -130,13 +147,16 @@ def draw_snake():
         else:
             pyxel.pset(x, y, pyxel.COLOR_BROWN)
 
+
 def draw_apple():
     if score == 10:
-        pyxel.pset(apple_x, apple_y, pyxel.COLOR_PINK)
+        pyxel.pset(apple_x, apple_y, pyxel.COLOR_BLACK)
     elif score == 50:
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_WHITE)
     else:    
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
+
+
 
 def draw():
     pyxel.blt(0, 0, 0, 0, 0, 32, 32) # Draw the wallpaper
@@ -144,10 +164,11 @@ def draw():
     draw_snake()
     draw_apple()
 
-
     if game_over:
         pyxel.text(3, 5, f"{name}\nSCORED:\n{score}", pyxel.COLOR_BLACK)
        
+
+
 
 ####################
 # Imputs and Logic #

@@ -1,0 +1,18 @@
+SCORE, NAME:
+
+oo, Bruno Ribeiro
+16,	George
+1,	Harry
+9,	Harry
+6,	Frodo
+7,	Broh
+0,	john
+7,	Robin
+2,	Michael
+5,	Oscar
+11,	Gregory
+9,	Bilie
+1,	Bilie
+1,	Louren
+4,	Juliet
+3,	Juliet
