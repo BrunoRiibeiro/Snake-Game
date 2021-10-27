@@ -16,6 +16,7 @@ wrote = False
 print(f"Your name is {name}")  
 
 
+
 ###############
 # Leaderboard #
 ###############
@@ -95,6 +96,11 @@ def change_music_2(): # To change the song while game_over == False
 
 def update():
     global x_head, y_head, x_body, y_body, move_x, move_y, game_over, score, wrote
+    
+    update_snake()
+    update_apple()
+    motion()
+
 
     ##################
     # Game Over Mode #
@@ -128,10 +134,6 @@ def update():
         wrote = False
     elif game_over:
         return
-
-    update_snake()
-    update_apple()
-    motion()
 
 
 
