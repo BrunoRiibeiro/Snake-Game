@@ -7,9 +7,15 @@ First of all, you must install this extension by the command:
 ```
  pip install pyxel
 ```
-Then, execute the file "main.py".
+Then, execute the file "main.py" by the command bellow:
+```
+Python3 main.py
+```
 
-You'll need to write your name in the terminal for leaderboard count.
+You'll need to write your name in the terminal for the leaderboard count.
+```
+Enter your name: <Bruno>
+```
 
 Controls are the arrow keys (↑ ← ↓ →) or you may use (W A S D) keys!
 
