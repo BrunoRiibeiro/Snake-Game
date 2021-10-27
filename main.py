@@ -134,7 +134,7 @@ def draw_apple():
     if score == 10:
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_PINK)
     elif score == 50:
-        pyxel.pset(apple_x, apple_y, pyxel.COLOR_WITHE)
+        pyxel.pset(apple_x, apple_y, pyxel.COLOR_WHITE)
     else:    
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
 
