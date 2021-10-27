@@ -24,8 +24,8 @@ def write():
     file.write(str(score) + "," + "\t" + name + "\n")
     file.close()
     wrote = True
-    
 
+    
 ##################################
 # Gaming Motion and Snake Growth #
 ##################################
@@ -123,10 +123,16 @@ def update():
 ################
 def draw_snake():
     for x, y in zip(x_body, y_body):
-        pyxel.pset(x, y, pyxel.COLOR_BROWN)
+        if score >= 11:
+            pyxel.pset(x, y, randint(0, 15))
+        else:
+            pyxel.pset(x, y, pyxel.COLOR_BROWN)
 
 def draw_apple():
-    pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
+    if score == 10:
+        pyxel.pset(apple_x, apple_y, pyxel.COLOR_PINK)
+    else:    
+        pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
 
 def draw():
     pyxel.blt(0, 0, 0, 0, 0, 32, 32) # Draw the wallpaper
