@@ -123,7 +123,9 @@ def update():
 ################
 def draw_snake():
     for x, y in zip(x_body, y_body):
-        if score >= 11:
+        if 11 <= score <= 50:
+            pyxel.pset(x, y, pyxel.COLOR_BLACK)
+        elif score >= 51:
             pyxel.pset(x, y, randint(0, 15))
         else:
             pyxel.pset(x, y, pyxel.COLOR_BROWN)
@@ -131,6 +133,8 @@ def draw_snake():
 def draw_apple():
     if score == 10:
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_PINK)
+    elif score == 50:
+        pyxel.pset(apple_x, apple_y, pyxel.COLOR_WITHE)
     else:    
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
 
