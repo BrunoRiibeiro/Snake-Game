@@ -2,7 +2,7 @@
 ## What's up everyone!
     
 ### This is a full Python project-game, for an APC (Algorithm of Computer Programming) class,  using Pyxel extention.
-#### So, I wrote a (.Docx) file, telling my conclusions and my comments about the code, to my professor. If you just want to play, ignore the file "Notes_for_my_teacher".
+#### So, I wrote a (.docx) file, telling my conclusions and my comments about the code, to my professor. If you just want to play, ignore the file "Notes_for_my_teacher".
 
 First of all, you must install this extension by the command:
 ```
@@ -24,6 +24,6 @@ Q: Quit the game
 
 R: Restart the game
 
-The pices played are the "Gran Vals" by Francisco Tárrega, also knew as nokia ringtone, and the reverse charge call tone in Brazil. I transcribed both of them using the pyxeleditor.
+The pices played are the "Gran Vals" by Francisco Tárrega, also known as nokia ringtone, and the reverse charge call tone in Brazil. I transcribed both of them using the pyxeleditor.
 
 *Created by Bruno in 2021*
