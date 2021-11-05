@@ -52,20 +52,20 @@ def update_snake():
 ################
 def motion():
     global move_x, move_y
-    if pyxel.btn(pyxel.KEY_UP) or pyxel.btn(pyxel.KEY_W):
-        if move_y != down:
+    if pyxel.btnp(pyxel.KEY_UP) or pyxel.btnp(pyxel.KEY_W):
+        if not (move_y == down):
             move_y = up
             move_x = 0
-    elif pyxel.btn(pyxel.KEY_DOWN) or pyxel.btn(pyxel.KEY_S):
-        if move_y != up:
+    elif pyxel.btnp(pyxel.KEY_DOWN) or pyxel.btnp(pyxel.KEY_S):
+        if not (move_y == up):
             move_y = down
             move_x = 0
-    elif pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.KEY_A):
-        if move_x != rigth:
+    elif pyxel.btnp(pyxel.KEY_LEFT) or pyxel.btnp(pyxel.KEY_A):
+        if not (move_x == rigth):
             move_x = left
             move_y = 0
-    elif pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.KEY_D):
-        if move_x != left:
+    elif pyxel.btnp(pyxel.KEY_RIGHT) or pyxel.btnp(pyxel.KEY_D):
+        if not (move_x == left):
             move_x = rigth
             move_y = 0
     
@@ -180,7 +180,7 @@ def draw():
 # Imputs and Logic #
 ####################
 pyxel.init(32, 32, caption="Snake Game", fps=fps, quit_key=pyxel.KEY_Q)
-pyxel.load("arts.pyxres") # load file "arts"
+pyxel.load("arts_sets.pyxres") # load file "arts"
 pyxel.image(0).set(32,32,["32","32"]) # set wallpaper
 pyxel.playm(0,loop=True) # Play the pice in loop
 pyxel.run(update, draw) # Run the update and draw functions
