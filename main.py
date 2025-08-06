@@ -13,7 +13,7 @@ game_over = False
 changed = False
 name = input("Enter your name: ")
 wrote = False
-print(f"Your name is {name}")  
+print(f"Your name is {name}")
 
 
 
@@ -22,12 +22,19 @@ print(f"Your name is {name}")
 ###############
 def write():
     global wrote
-    file = open("leaderboard.txt", "a")
-    file.write(str(score) + "," + "\t" + name + "\n")
-    file.close()
+    try:
+        with open("leaderboard.txt", "r") as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        lines = []
+    lines.append(f"{score},\t{name}\n")
+    valid_lines = [line for line in lines if line.strip() and line.split(",")[0].isdigit()]
+    valid_lines.sort(key=lambda x: int(x.split(",")[0]), reverse=True)
+    with open("leaderboard.txt", "w") as file:
+        file.writelines(valid_lines)
     wrote = True
 
-    
+
 ##################################
 # Gaming Motion and Snake Growth #
 ##################################
@@ -43,7 +50,7 @@ def update_snake():
         x_body.append(x_head)
         y_body.append(y_head)
         if not (x_head == apple_x and y_head == apple_y):
-            del x_body[0] 
+            del x_body[0]
             del y_body[0]
 
 
@@ -68,7 +75,7 @@ def motion():
         if not (move_x == left):
             move_x = rigth
             move_y = 0
-    
+
 
 #########################
 # Random apple generate #
@@ -83,7 +90,7 @@ def update_apple():
 
 def change_music_1(): # To change the song while game_over == True
     global changed
-    pyxel.stop() 
+    pyxel.stop()
     pyxel.playm(1, loop=True)
     changed = True
 
@@ -96,7 +103,7 @@ def change_music_2(): # To change the song while game_over == False
 
 def update():
     global x_head, y_head, x_body, y_body, move_x, move_y, game_over, score, wrote
-    
+
     update_snake()
     update_apple()
     motion()
@@ -106,7 +113,7 @@ def update():
     # Game Over Mode #
     ##################
     acc = set(zip(x_body,y_body))
-   
+
     if len(acc) < len(y_body): # Check tail collision
         game_over = True
 
@@ -114,14 +121,14 @@ def update():
         game_over = True
 
     if game_over == True and wrote == False: # Write name and score in leaderboard
-        write()           
+        write()
 
-    if game_over == True and changed == False: 
+    if game_over == True and changed == False:
         change_music_1()
-    if game_over == False and changed == True:                  
-        change_music_2()           
+    if game_over == False and changed == True:
+        change_music_2()
 
-    
+
     ###########
     # Restart #
     ###########
@@ -159,7 +166,7 @@ def draw_apple():
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_WHITE)
     elif score >= 50:
         pyxel.pset(apple_x, apple_y, randint(0, 15))
-    else:    
+    else:
         pyxel.pset(apple_x, apple_y, pyxel.COLOR_RED)
 
 
@@ -172,7 +179,7 @@ def draw():
 
     if game_over:
         pyxel.text(3, 5, f"{name}\nSCORED:\n{score}", pyxel.COLOR_BLACK)
-       
+
 
 
 
