@@ -179,7 +179,7 @@ def draw():
 ####################
 # Imputs and Logic #
 ####################
-pyxel.init(32, 32, caption="Snake Game", fps=fps, quit_key=pyxel.KEY_Q)
+pyxel.init(32, 32, "Snake Game", fps=fps, quit_key=pyxel.KEY_Q)
 pyxel.load("arts_sets.pyxres") # load file "arts"
 pyxel.image(0).set(32,32,["32","32"]) # set wallpaper
 pyxel.playm(0,loop=True) # Play the pice in loop
